@@ -26,7 +26,19 @@ public class FinanceApplication {
             int choice = Integer.parseInt(sc.nextLine());
             switch (choice) {
                 case 1:
-                    if (displayListData()) return;
+                    do {
+                        if (currentIndex == 0) {
+                            System.err.println("Mảng chưa có dữ liệu vui lòng nhập dữ liệu");
+                        } else {
+                            System.out.println("Danh sách khoản chi tiêu");
+                            for (int i = 0; i < currentIndex; i++) {
+                                expenses[i].displayData();
+                                System.out.println();
+                            }
+                            break;
+                        }
+
+                    } while (true);
                     break;
                 case 2:
                     createNewData(sc);
@@ -47,9 +59,6 @@ public class FinanceApplication {
                     displayDataByPaymentMethod();
                     break;
                 case 8:
-                    for (int i = 0; i < currentIndex; i++) {
-                        if (expenses[i].getCreatedAt() < expenses[i].getCreatedAt()) {}
-                    }
                     break;
                 case 9:
                     System.exit(0);
@@ -65,16 +74,16 @@ public class FinanceApplication {
         double sumPaymentMethod3 = 0;
         for (int i = 0; i < currentIndex; i++) {
             if (expenses[i].getPaymentMethod() == 1) {
-                sumPaymentMethod1+=expenses[i].getAmount();
+                sumPaymentMethod1 += expenses[i].getAmount();
             } else if (expenses[i].getPaymentMethod() == 2) {
-                sumPaymentMethod2+=expenses[i].getAmount();
+                sumPaymentMethod2 += expenses[i].getAmount();
             } else {
-                sumPaymentMethod3+=expenses[i].getAmount();
+                sumPaymentMethod3 += expenses[i].getAmount();
             }
         }
-        System.out.printf("Tổng số tiền thanh toán bằng phương thức %s là: %f", Expense.findNamePaymentMethodByNumber(1),sumPaymentMethod1);
-        System.out.printf("Tổng số tiền thanh toán bằng phương thức %s là: %f", Expense.findNamePaymentMethodByNumber(2),sumPaymentMethod2);
-        System.out.printf("Tổng số tiền thanh toán bằng phương thức %s là: %f", Expense.findNamePaymentMethodByNumber(3),sumPaymentMethod3);
+        System.out.printf("Tổng số tiền thanh toán bằng phương thức %s là: %f", Expense.findNamePaymentMethodByNumber(1), sumPaymentMethod1);
+        System.out.printf("Tổng số tiền thanh toán bằng phương thức %s là: %f", Expense.findNamePaymentMethodByNumber(2), sumPaymentMethod2);
+        System.out.printf("Tổng số tiền thanh toán bằng phương thức %s là: %f", Expense.findNamePaymentMethodByNumber(3), sumPaymentMethod3);
     }
 
     private static void displayByCategory() {
@@ -130,19 +139,6 @@ public class FinanceApplication {
         expense.inputData(sc);
         expenses[currentIndex] = expense;
         currentIndex++;
-    }
-
-    private static boolean displayListData() {
-        if (currentIndex == 0) {
-            System.err.println("Mảng chưa có dữ liệu vui lòng nhập dữ liệu");
-            return true;
-        }
-        System.out.println("Danh sách khoản chi tiêu");
-        for (int i = 0; i < currentIndex; i++) {
-            expenses[i].displayData();
-            System.out.println();
-        }
-        return false;
     }
 
     private static void fixDataById(Scanner sc) {
